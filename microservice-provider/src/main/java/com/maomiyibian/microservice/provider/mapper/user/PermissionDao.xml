@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.maomiyibian.microservice.provider.dao.user.PermissionDao" >
+  <resultMap id="BaseResultMap" type="com.maomiyibian.microservice.api.domain.user.Permission" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="permission_code" property="permissionCode" jdbcType="VARCHAR" />
+    <result column="permission_name" property="permissionName" jdbcType="VARCHAR" />
+    <result column="permission_state" property="permissionState" jdbcType="CHAR" />
+    <result column="permission_type" property="permissionType" jdbcType="VARCHAR" />
+    <result column="menu_name" property="menuName" jdbcType="VARCHAR" />
+    <result column="menu_state" property="menuState" jdbcType="CHAR" />
+    <result column="menu_url" property="menuUrl" jdbcType="VARCHAR" />
+    <result column="permission_remark" property="permissionRemark" jdbcType="VARCHAR" />
+    <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      id, permission_code, permission_name, permission_state, permission_type, menu_name, 
+      menu_state, menu_url, permission_remark, create_user_id, create_time, update_time
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    id,permission_code,permission_name,permission_state,permission_type,menu_name,menu_state,menu_url,permission_remark,create_user_id,create_time,update_time
+    from permission
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from permission
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.maomiyibian.microservice.api.domain.user.Permission" >
+    insert into permission (id, permission_code, permission_name, 
+      permission_state, permission_type, menu_name, 
+      menu_state, menu_url, permission_remark, 
+      create_user_id, create_time, update_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{permissionCode,jdbcType=VARCHAR}, #{permissionName,jdbcType=VARCHAR}, 
+      #{permissionState,jdbcType=CHAR}, #{permissionType,jdbcType=VARCHAR}, #{menuName,jdbcType=VARCHAR}, 
+      #{menuState,jdbcType=CHAR}, #{menuUrl,jdbcType=VARCHAR}, #{permissionRemark,jdbcType=VARCHAR}, 
+      #{createUserId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.maomiyibian.microservice.api.domain.user.Permission" >
+    insert into permission
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="permissionCode != null" >
+        permission_code,
+      </if>
+      <if test="permissionName != null" >
+        permission_name,
+      </if>
+      <if test="permissionState != null" >
+        permission_state,
+      </if>
+      <if test="permissionType != null" >
+        permission_type,
+      </if>
+      <if test="menuName != null" >
+        menu_name,
+      </if>
+      <if test="menuState != null" >
+        menu_state,
+      </if>
+      <if test="menuUrl != null" >
+        menu_url,
+      </if>
+      <if test="permissionRemark != null" >
+        permission_remark,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="permissionCode != null" >
+        #{permissionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionName != null" >
+        #{permissionName,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionState != null" >
+        #{permissionState,jdbcType=CHAR},
+      </if>
+      <if test="permissionType != null" >
+        #{permissionType,jdbcType=VARCHAR},
+      </if>
+      <if test="menuName != null" >
+        #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuState != null" >
+        #{menuState,jdbcType=CHAR},
+      </if>
+      <if test="menuUrl != null" >
+        #{menuUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionRemark != null" >
+        #{permissionRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.maomiyibian.microservice.api.domain.user.Permission" >
+    update permission
+    <set >
+      <if test="permissionCode != null" >
+        permission_code = #{permissionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionName != null" >
+        permission_name = #{permissionName,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionState != null" >
+        permission_state = #{permissionState,jdbcType=CHAR},
+      </if>
+      <if test="permissionType != null" >
+        permission_type = #{permissionType,jdbcType=VARCHAR},
+      </if>
+      <if test="menuName != null" >
+        menu_name = #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuState != null" >
+        menu_state = #{menuState,jdbcType=CHAR},
+      </if>
+      <if test="menuUrl != null" >
+        menu_url = #{menuUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionRemark != null" >
+        permission_remark = #{permissionRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maomiyibian.microservice.api.domain.user.Permission" >
+    update permission
+    set permission_code = #{permissionCode,jdbcType=VARCHAR},
+      permission_name = #{permissionName,jdbcType=VARCHAR},
+      permission_state = #{permissionState,jdbcType=CHAR},
+      permission_type = #{permissionType,jdbcType=VARCHAR},
+      menu_name = #{menuName,jdbcType=VARCHAR},
+      menu_state = #{menuState,jdbcType=CHAR},
+      menu_url = #{menuUrl,jdbcType=VARCHAR},
+      permission_remark = #{permissionRemark,jdbcType=VARCHAR},
+      create_user_id = #{createUserId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
