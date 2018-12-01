@@ -3,6 +3,7 @@
 <mapper namespace="com.maomiyibian.microservice.provider.dao.user.RoleDao" >
   <resultMap id="BaseResultMap" type="com.maomiyibian.microservice.api.domain.user.Role" >
     <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="role_code" property="roleCode" jdbcType="VARCHAR" />
     <result column="role_name" property="roleName" jdbcType="VARCHAR" />
     <result column="role_states" property="roleStates" jdbcType="CHAR" />
     <result column="role_remark" property="roleRemark" jdbcType="VARCHAR" />
@@ -12,7 +13,7 @@
   </resultMap>
   <sql id="Base_Column_List" >
     <if test="fields == null" >
-      id, role_name, role_states, role_remark, create_user_id, create_time, update_time
+      id,role_code, role_name, role_states, role_remark, create_user_id, create_time, update_time
     </if>
     <if test="fields != null" >
       ${fields}
@@ -20,7 +21,7 @@
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
-    id,role_name,role_states,role_remark,create_user_id,create_time,update_time
+    id,role_code,role_name,role_states,role_remark,create_user_id,create_time,update_time
     from role
     where id = #{id,jdbcType=BIGINT}
   </select>
@@ -29,10 +30,10 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.maomiyibian.microservice.api.domain.user.Role" >
-    insert into role (id, role_name, role_states, 
+    insert into role (id, role_code,role_name, role_states,
       role_remark, create_user_id, create_time, 
       update_time)
-    values (#{id,jdbcType=BIGINT}, #{roleName,jdbcType=VARCHAR}, #{roleStates,jdbcType=CHAR}, 
+    values (#{id,jdbcType=BIGINT}, #{roleCode,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR}, #{roleStates,jdbcType=CHAR},
       #{roleRemark,jdbcType=VARCHAR}, #{createUserId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP})
   </insert>

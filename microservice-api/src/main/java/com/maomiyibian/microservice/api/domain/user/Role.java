@@ -9,6 +9,12 @@ public class Role implements Serializable {
      */
     private Long id;
 
+
+    /**
+     * 角色Code
+     */
+    private String roleCode;
+
     /**
      * 角色名称
      */
@@ -97,6 +103,14 @@ public class Role implements Serializable {
         this.updateTime = updateTime;
     }
 
+    public String getRoleCode() {
+        return roleCode;
+    }
+
+    public void setRoleCode(String roleCode) {
+        this.roleCode = roleCode;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -104,6 +118,7 @@ public class Role implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
+        sb.append(", roleCode=").append(roleCode);
         sb.append(", roleName=").append(roleName);
         sb.append(", roleStates=").append(roleStates);
         sb.append(", roleRemark=").append(roleRemark);

@@ -3,13 +3,13 @@ package com.maomiyibian.microservice.customer.controller.user;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.maomiyibian.microservice.api.domain.user.User;
 import com.maomiyibian.microservice.api.service.user.UserService;
+import com.maomiyibian.microservice.common.message.TradeMessages;
 import com.maomiyibian.microservice.common.page.Page;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Map;
 
 /**
- * TODO: 类描述
+ * TODO: 用户服务控制层
  *
  * @author junyunxiao
  * @date 2018-9-10 10:06
@@ -25,19 +25,20 @@ public class UserController {
     private UserService userService;
 
 
-    @PostMapping("/login")
+    /**
+     *
+     * 尚未认证
+     * @return
+     * @throws Exception
+     */
+    @GetMapping("/unAuthorized")
     @ResponseBody
-    public User login(String username, String password)throws Exception{
-
-        return userService.queryUserByName(username);
-    }
-
-    @PostMapping("/login/error")
-    @ResponseBody
-    public User loginError()throws Exception{
-
-       /* return userService.queryUserByName(username);*/
-        return null;
+    public TradeMessages<String> oauthLogin()throws Exception{
+        TradeMessages<String> messages=new TradeMessages<>();
+        messages.setResultCode("401");
+        messages.setResultMessage("尚未认证，请进行身份认证后再访问");
+        messages.setData(null);
+        return messages;
     }
 
     @GetMapping("/queryUserByPage")

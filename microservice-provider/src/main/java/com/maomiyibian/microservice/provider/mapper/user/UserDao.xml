@@ -14,6 +14,16 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="user_remark" property="userRemark" jdbcType="VARCHAR" />
+    <collection property="roles" ofType="com.maomiyibian.microservice.api.domain.user.Role">
+      <id column="id" property="id" jdbcType="BIGINT" />
+      <result column="role_code" property="roleCode" jdbcType="VARCHAR" />
+      <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+      <result column="role_states" property="roleStates" jdbcType="CHAR" />
+      <result column="role_remark" property="roleRemark" jdbcType="VARCHAR" />
+      <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+      <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+      <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    </collection>
   </resultMap>
   <sql id="Base_Column_List" >
       id, user_name, user_pwd, user_phone_num, wechat_num, qq_num, user_avatar, user_status, 
@@ -27,10 +37,11 @@
   </select>
 
   <select id="queryUserByName" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select
-    id,user_name,user_pwd,user_phone_num,wechat_num,qq_num,user_avatar,user_status,create_user_id,create_time,update_time,user_remark
-    from user
-    where user_name = #{userName,jdbcType=VARCHAR}
+    SELECT u.*,r.*
+    FROM `user` u INNER JOIN
+    `user_role` ur ON u.`id`=ur.`user_id`
+    INNER JOIN `role` r ON ur.`role_id`=r.`id`
+    WHERE u.`user_name`=#{userName,jdbcType=VARCHAR}
   </select>
 
   <select id="queryUser" resultMap="BaseResultMap" parameterType="java.util.Map">

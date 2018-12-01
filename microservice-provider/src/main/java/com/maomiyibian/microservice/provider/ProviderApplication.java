@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 
 /**
- * TODO: 类描述
+ * TODO: 服务提供者
  *
  * @author junyunxiao
  * @date 2018-9-10 9:57

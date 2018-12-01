@@ -3,6 +3,7 @@ package com.maomiyibian.microservice.api.domain.user;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 public class User implements Serializable {
     /**
@@ -176,6 +177,7 @@ public class User implements Serializable {
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
+
 
     @Override
     public String toString() {

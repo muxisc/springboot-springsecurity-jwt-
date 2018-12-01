@@ -6,30 +6,36 @@
     <result column="permission_code" property="permissionCode" jdbcType="VARCHAR" />
     <result column="permission_name" property="permissionName" jdbcType="VARCHAR" />
     <result column="permission_state" property="permissionState" jdbcType="CHAR" />
-    <result column="permission_type" property="permissionType" jdbcType="VARCHAR" />
-    <result column="menu_name" property="menuName" jdbcType="VARCHAR" />
-    <result column="menu_state" property="menuState" jdbcType="CHAR" />
-    <result column="menu_url" property="menuUrl" jdbcType="VARCHAR" />
     <result column="permission_remark" property="permissionRemark" jdbcType="VARCHAR" />
     <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    <if test="fields == null" >
-      id, permission_code, permission_name, permission_state, permission_type, menu_name, 
-      menu_state, menu_url, permission_remark, create_user_id, create_time, update_time
-    </if>
-    <if test="fields != null" >
-      ${fields}
-    </if>
+      id,permission_code,permission_name,permission_state,permission_remark,create_user_id,create_time,update_time
   </sql>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
-    id,permission_code,permission_name,permission_state,permission_type,menu_name,menu_state,menu_url,permission_remark,create_user_id,create_time,update_time
+    id,permission_code,permission_name,permission_state,permission_remark,create_user_id,create_time,update_time
     from permission
     where id = #{id,jdbcType=BIGINT}
   </select>
+
+  <select id="queryPermissionsByUserId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    SELECT
+    pr.*
+    FROM
+    `user_role` ur
+    INNER JOIN `role_permission` rp
+    ON ur.`role_id` = rp.`role_id`
+    INNER JOIN `permission` pr
+    ON rp.`permission_id` = pr.`id`
+    WHERE ur.`user_id`= #{id,jdbcType=BIGINT}
+    AND pr.`permission_state`='1'
+  </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from permission
     where id = #{id,jdbcType=BIGINT}

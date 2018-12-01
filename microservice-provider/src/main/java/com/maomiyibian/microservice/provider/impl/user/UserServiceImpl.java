@@ -49,4 +49,5 @@ public class UserServiceImpl implements UserService {
         logger.info("com.maomiyibian.microservice.provider.impl.UserServiceImpl.queryUserByPage:Rpc调用开始");
         return dataServiceStat.query("com.maomiyibian.microservice.provider.dao.user.UserDao.queryUserByPage","com.maomiyibian.microservice.provider.dao.user.UserDao.queryUserCount",parameter,page);
     }
+
 }

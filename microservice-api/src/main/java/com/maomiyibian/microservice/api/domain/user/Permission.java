@@ -3,8 +3,12 @@ package com.maomiyibian.microservice.api.domain.user;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * @author junyunxiao
+ */
 public class Permission implements Serializable {
 
+    private static final long serialVersionUID = 2180289127097828592L;
     /**
      * 权限ID
      */
@@ -26,26 +30,6 @@ public class Permission implements Serializable {
     private String permissionState;
 
     /**
-     * 权限类型 0:菜单 1:权限字符
-     */
-    private String permissionType;
-
-    /**
-     * 菜单名称
-     */
-    private String menuName;
-
-    /**
-     * 菜单状态 1:启用 0;禁用
-     */
-    private String menuState;
-
-    /**
-     * 菜单Url
-     */
-    private String menuUrl;
-
-    /**
      * 权限备注
      */
     private String permissionRemark;
@@ -65,8 +49,6 @@ public class Permission implements Serializable {
      */
     private Date updateTime;
 
-    private static final long serialVersionUID = 1L;
-
     public Long getId() {
         return id;
     }
@@ -80,7 +62,7 @@ public class Permission implements Serializable {
     }
 
     public void setPermissionCode(String permissionCode) {
-        this.permissionCode = permissionCode == null ? null : permissionCode.trim();
+        this.permissionCode = permissionCode;
     }
 
     public String getPermissionName() {
@@ -88,7 +70,7 @@ public class Permission implements Serializable {
     }
 
     public void setPermissionName(String permissionName) {
-        this.permissionName = permissionName == null ? null : permissionName.trim();
+        this.permissionName = permissionName;
     }
 
     public String getPermissionState() {
@@ -96,39 +78,7 @@ public class Permission implements Serializable {
     }
 
     public void setPermissionState(String permissionState) {
-        this.permissionState = permissionState == null ? null : permissionState.trim();
-    }
-
-    public String getPermissionType() {
-        return permissionType;
-    }
-
-    public void setPermissionType(String permissionType) {
-        this.permissionType = permissionType == null ? null : permissionType.trim();
-    }
-
-    public String getMenuName() {
-        return menuName;
-    }
-
-    public void setMenuName(String menuName) {
-        this.menuName = menuName == null ? null : menuName.trim();
-    }
-
-    public String getMenuState() {
-        return menuState;
-    }
-
-    public void setMenuState(String menuState) {
-        this.menuState = menuState == null ? null : menuState.trim();
-    }
-
-    public String getMenuUrl() {
-        return menuUrl;
-    }
-
-    public void setMenuUrl(String menuUrl) {
-        this.menuUrl = menuUrl == null ? null : menuUrl.trim();
+        this.permissionState = permissionState;
     }
 
     public String getPermissionRemark() {
@@ -136,7 +86,7 @@ public class Permission implements Serializable {
     }
 
     public void setPermissionRemark(String permissionRemark) {
-        this.permissionRemark = permissionRemark == null ? null : permissionRemark.trim();
+        this.permissionRemark = permissionRemark;
     }
 
     public Long getCreateUserId() {
@@ -173,15 +123,10 @@ public class Permission implements Serializable {
         sb.append(", permissionCode=").append(permissionCode);
         sb.append(", permissionName=").append(permissionName);
         sb.append(", permissionState=").append(permissionState);
-        sb.append(", permissionType=").append(permissionType);
-        sb.append(", menuName=").append(menuName);
-        sb.append(", menuState=").append(menuState);
-        sb.append(", menuUrl=").append(menuUrl);
         sb.append(", permissionRemark=").append(permissionRemark);
         sb.append(", createUserId=").append(createUserId);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
     }
