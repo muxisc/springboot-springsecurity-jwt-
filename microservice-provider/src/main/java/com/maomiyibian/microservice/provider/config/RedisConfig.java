@@ -10,7 +10,6 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
-import java.net.UnknownHostException;
 
 /**
  * TODO: Redis配置类
@@ -18,8 +17,8 @@ import java.net.UnknownHostException;
  * @author junyunxiao
  * @date 2018-9-23 16:27
  */
-@Configuration
-@EnableCaching
+/*@Configuration
+@EnableCaching*/
 public class RedisConfig {
 
     @Bean
