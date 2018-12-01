@@ -1,8 +1,16 @@
-package com.maomiyibian.microservice.api.domain.user;
+package com.maomiyibian.microservice.api.domain.role;
 
 import java.io.Serializable;
 import java.util.Date;
 
+
+/**
+ * TODO: 角色实体
+ *
+ * @author junyunxiao
+ * @version 1.0
+ * @date 2018/12/1 15:15
+ */
 public class Role implements Serializable {
     /**
      * 角色ID

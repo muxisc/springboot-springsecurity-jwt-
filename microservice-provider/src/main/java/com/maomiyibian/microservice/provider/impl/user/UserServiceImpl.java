@@ -8,7 +8,6 @@ import com.maomiyibian.microservice.provider.template.DataServiceMybatis;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 
 import java.util.Map;
 
@@ -43,7 +42,6 @@ public class UserServiceImpl implements UserService {
         return dataServiceStat.getObject("com.maomiyibian.microservice.provider.dao.user.UserDao.queryUser",parmeter);
     }
 
-    //@Cacheable(value ="user",key="#root.methodName",unless = "#result==null")
     @Override
     public Page<User> queryUserByPage(Object parameter,Page page) throws Exception {
         logger.info("com.maomiyibian.microservice.provider.impl.UserServiceImpl.queryUserByPage:Rpc调用开始");

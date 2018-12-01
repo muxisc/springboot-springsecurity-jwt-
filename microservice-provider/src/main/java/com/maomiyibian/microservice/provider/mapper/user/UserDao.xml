@@ -14,7 +14,7 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="user_remark" property="userRemark" jdbcType="VARCHAR" />
-    <collection property="roles" ofType="com.maomiyibian.microservice.api.domain.user.Role">
+    <collection property="roles" ofType="com.maomiyibian.microservice.api.domain.role.Role">
       <id column="id" property="id" jdbcType="BIGINT" />
       <result column="role_code" property="roleCode" jdbcType="VARCHAR" />
       <result column="role_name" property="roleName" jdbcType="VARCHAR" />

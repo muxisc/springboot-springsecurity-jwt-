@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.maomiyibian.microservice.provider.dao.user.PermissionDao" >
-  <resultMap id="BaseResultMap" type="com.maomiyibian.microservice.api.domain.user.Permission" >
+  <resultMap id="BaseResultMap" type="com.maomiyibian.microservice.api.domain.permission.Permission" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="permission_code" property="permissionCode" jdbcType="VARCHAR" />
     <result column="permission_name" property="permissionName" jdbcType="VARCHAR" />
@@ -40,7 +40,7 @@
     delete from permission
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.maomiyibian.microservice.api.domain.user.Permission" >
+  <insert id="insert" parameterType="com.maomiyibian.microservice.api.domain.permission.Permission" >
     insert into permission (id, permission_code, permission_name, 
       permission_state, permission_type, menu_name, 
       menu_state, menu_url, permission_remark, 
@@ -52,7 +52,7 @@
       #{createUserId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.maomiyibian.microservice.api.domain.user.Permission" >
+  <insert id="insertSelective" parameterType="com.maomiyibian.microservice.api.domain.permission.Permission" >
     insert into permission
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -131,7 +131,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.maomiyibian.microservice.api.domain.user.Permission" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.maomiyibian.microservice.api.domain.permission.Permission" >
     update permission
     <set >
       <if test="permissionCode != null" >
@@ -170,7 +170,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.maomiyibian.microservice.api.domain.user.Permission" >
+  <update id="updateByPrimaryKey" parameterType="com.maomiyibian.microservice.api.domain.permission.Permission" >
     update permission
     set permission_code = #{permissionCode,jdbcType=VARCHAR},
       permission_name = #{permissionName,jdbcType=VARCHAR},
