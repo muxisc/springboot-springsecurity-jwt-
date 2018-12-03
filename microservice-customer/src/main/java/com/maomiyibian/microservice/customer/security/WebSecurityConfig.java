@@ -1,7 +1,11 @@
 package com.maomiyibian.microservice.customer.security;
 
+import com.maomiyibian.microservice.customer.security.filter.JWTAuthenticationFilter;
+import com.maomiyibian.microservice.customer.security.filter.JWTLoginFilter;
 import com.maomiyibian.microservice.customer.security.handler.AuthenticationSuccessHandler;
 import com.maomiyibian.microservice.customer.security.handler.CustomAuthenticationFailHandler;
+import com.maomiyibian.microservice.customer.security.mobile.SmsCodeAuthenticationSecurityConfig;
+import com.maomiyibian.microservice.customer.security.validate.ValidateCodeSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +13,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.social.security.SpringSocialConfigurer;
 
 /**
  * TODO: Spring Security 核心配置类
@@ -20,6 +25,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private ValidateCodeSecurityConfig validateCodeSecurityConfig;
+
+    @Autowired
+    private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
+
+   /* @Autowired
+    private SpringSocialConfigurer merryyouSpringSocialConfigurer;*/
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -43,6 +56,14 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
                 .failureHandler(customAuthenticationFailHandler)
         //http.httpBasic()
                 .and()
+                .apply(validateCodeSecurityConfig)//验证码拦截
+                .and()
+                .apply(smsCodeAuthenticationSecurityConfig)
+                .and()
+                /*.apply(merryyouSpringSocialConfigurer)//社交登录
+                .and()*/
+                .addFilter(new JWTLoginFilter(authenticationManager()))
+                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
                 .authorizeRequests()
                 .antMatchers("/user/unAuthorized","/user/login").permitAll()
                 .anyRequest()

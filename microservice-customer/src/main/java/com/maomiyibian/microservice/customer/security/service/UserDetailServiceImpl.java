@@ -16,6 +16,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.social.security.SocialUserDetails;
+import org.springframework.social.security.SocialUserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import java.util.ArrayList;
@@ -29,7 +31,7 @@ import java.util.List;
  * @date 2018/11/27 10:24
  */
 @Component
-public class UserDetailServiceImpl implements UserDetailsService {
+public class UserDetailServiceImpl implements UserDetailsService,SocialUserDetailsService {
     private Logger logger= LoggerFactory.getLogger(UserDetailServiceImpl.class);
 
     @Reference(version = "${service.version}",
@@ -72,5 +74,10 @@ public class UserDetailServiceImpl implements UserDetailsService {
             authorities.add(new CustomGrantedAuthority(user.getRoles(),menus,permissions));
         }
         return  new org.springframework.security.core.userdetails.User(user.getUserName(),user.getUserPwd() ,true,true,true,true,authorities);
+    }
+
+    @Override
+    public SocialUserDetails loadUserByUserId(String s) throws UsernameNotFoundException {
+        return null;
     }
 }
