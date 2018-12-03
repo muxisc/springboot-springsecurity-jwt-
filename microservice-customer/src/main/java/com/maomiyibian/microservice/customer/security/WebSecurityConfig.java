@@ -16,8 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.social.security.SpringSocialConfigurer;
 
 /**
- * TODO: Spring Security 核心配置类
- *
  * @author junyunxiao
  * @version 1.0
  * @date 2018/11/28 15:44
@@ -62,6 +60,7 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
                 .and()
                 /*.apply(merryyouSpringSocialConfigurer)//社交登录
                 .and()*/
+
                 .addFilter(new JWTLoginFilter(authenticationManager()))
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
                 .authorizeRequests()
