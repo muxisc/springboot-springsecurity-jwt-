@@ -22,3 +22,4 @@ public class GrantedAuthorityImpl implements GrantedAuthority {
         return this.authority;
     }
 }
+
