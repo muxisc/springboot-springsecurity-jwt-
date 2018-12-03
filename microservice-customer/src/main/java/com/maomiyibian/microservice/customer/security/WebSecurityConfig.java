@@ -13,7 +13,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.social.security.SpringSocialConfigurer;
 
 /**
  * @author junyunxiao
@@ -52,14 +51,15 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/user/login")
                 .successHandler(authenticationSuccessHandler)
                 .failureHandler(customAuthenticationFailHandler)
-        //http.httpBasic()
+                //http.httpBasic()
                 .and()
-                .apply(validateCodeSecurityConfig)//验证码拦截
+                //验证码拦截
+                .apply(validateCodeSecurityConfig)
                 .and()
                 .apply(smsCodeAuthenticationSecurityConfig)
                 .and()
                 /*.apply(merryyouSpringSocialConfigurer)//社交登录
-                .and()*/
+                  .and()*/
 
                 .addFilter(new JWTLoginFilter(authenticationManager()))
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
