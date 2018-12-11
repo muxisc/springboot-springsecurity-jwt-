@@ -31,6 +31,26 @@ public class UserServiceImpl implements UserService {
     private DataServiceMybatis dataServiceStat;
 
     @Override
+    public boolean unboundUser(User user) {
+        return false;
+    }
+
+    @Override
+    public boolean boundUser(User user) {
+        return false;
+    }
+
+    @Override
+    public boolean updateUserInfo(User user) {
+        return false;
+    }
+
+    @Override
+    public User userRegister(User user) {
+        return null;
+    }
+
+    @Override
     public User queryUserByName(String userName) {
         logger.info("com.maomiyibian.microservice.provider.impl.UserServiceImpl.queryUserByName:Rpc调用开始");
         return dataServiceStat.getObject("com.maomiyibian.microservice.provider.dao.user.UserDao.queryUserByName",userName);

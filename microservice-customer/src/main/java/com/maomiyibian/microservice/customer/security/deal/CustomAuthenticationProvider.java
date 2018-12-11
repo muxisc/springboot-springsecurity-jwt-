@@ -1,5 +1,6 @@
 package com.maomiyibian.microservice.customer.security.deal;
 
+import com.maomiyibian.microservice.customer.security.authority.GrantedAuthorityImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
