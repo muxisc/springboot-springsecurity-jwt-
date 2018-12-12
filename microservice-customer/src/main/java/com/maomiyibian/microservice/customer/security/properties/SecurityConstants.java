@@ -28,7 +28,7 @@ public interface SecurityConstants {
     /**
      * 默认的手机验证码登录请求处理url
      */
-    String DEFAULT_SIGN_IN_URL_MOBILE_PAGE = "/authentication/mobilePage";
+    //String DEFAULT_SIGN_IN_URL_MOBILE_PAGE = "/authentication/mobilePage";
 
     /**
      * 默认的用户注册请求处理url

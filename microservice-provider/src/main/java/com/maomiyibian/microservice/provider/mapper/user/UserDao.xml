@@ -188,6 +188,7 @@
       </if>
     </trim>
   </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="com.maomiyibian.microservice.api.domain.user.User" >
     update user
     <set >

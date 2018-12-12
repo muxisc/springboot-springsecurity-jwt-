@@ -5,6 +5,7 @@ import com.maomiyibian.microservice.api.domain.user.User;
 import com.maomiyibian.microservice.api.service.user.UserService;
 import com.maomiyibian.microservice.common.message.TradeMessages;
 import com.maomiyibian.microservice.common.page.Page;
+import com.maomiyibian.microservice.common.utils.JSONUtils;
 import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
@@ -26,7 +27,6 @@ public class UserController {
 
 
     /**
-     *
      * 尚未认证
      * @return
      * @throws Exception
@@ -39,6 +39,13 @@ public class UserController {
         messages.setResultMessage("尚未认证，请进行身份认证后再访问");
         messages.setData(null);
         return messages;
+    }
+
+
+    @PostMapping("userRegister")
+    @ResponseBody
+    public TradeMessages<String> userRegister(User user){
+         return userService.userRegister(user);
     }
 
     @GetMapping("/queryUserByPage")

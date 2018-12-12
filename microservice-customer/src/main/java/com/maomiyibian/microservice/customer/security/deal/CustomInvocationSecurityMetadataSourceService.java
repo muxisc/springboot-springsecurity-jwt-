@@ -30,10 +30,11 @@ public class CustomInvocationSecurityMetadataSourceService implements FilterInvo
      * 然后遍历每个资源url，循环执行如下操作
      * 		根据匹配关系找到对应的角色列表
      * 		将匹配的角色列表封装，存入map
-     *
+     *被@PostConstruct修饰的方法会在服务器加载Servle的时候运行，并且只会被服务器执行一次。PostConstruct在构造函数之后执行,init()方法之前执行。
+     *一定要加上@PostConstruct注解
      */
-    @PostConstruct//  被@PostConstruct修饰的方法会在服务器加载Servle的时候运行，并且只会被服务器执行一次。PostConstruct在构造函数之后执行,init()方法之前执行。
-    private void loadResourceDefine() {   //一定要加上@PostConstruct注解
+    @PostConstruct
+    private void loadResourceDefine() {
        resourceMap = new HashMap<String, Collection<ConfigAttribute>>();
 
         /*List<Resource> resourceList = resourceDao.findAll();
@@ -73,7 +74,6 @@ public class CustomInvocationSecurityMetadataSourceService implements FilterInvo
                 return resourceMap.get(resURL);
             }
         }
-
         return null;
     }
 

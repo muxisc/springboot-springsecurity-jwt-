@@ -1,0 +1,10 @@
+merryyou:
+  security:
+    code:
+      image:
+        width: 90
+        height: 20
+        length: 4
+        expireIn: 30
+        url: /code/*
+    loginType: JSON

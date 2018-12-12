@@ -3,11 +3,16 @@ package com.maomiyibian.microservice.provider.impl.user;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.maomiyibian.microservice.api.domain.user.User;
 import com.maomiyibian.microservice.api.service.user.UserService;
+import com.maomiyibian.microservice.common.message.TradeMessages;
 import com.maomiyibian.microservice.common.page.Page;
 import com.maomiyibian.microservice.provider.template.DataServiceMybatis;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
 
@@ -28,6 +33,9 @@ public class UserServiceImpl implements UserService {
     private Logger logger= LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
     private DataServiceMybatis dataServiceStat;
 
     @Override
@@ -45,9 +53,24 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
+    @Transactional(rollbackFor = Exception.class,propagation = Propagation.REQUIRED,isolation = Isolation.READ_COMMITTED)
     @Override
-    public User userRegister(User user) {
-        return null;
+    public TradeMessages<String> userRegister(User user) {
+        TradeMessages<String> messages=new TradeMessages<>();
+        long userId=System.currentTimeMillis();
+        user.setId(userId);
+        user.setUserPwd(passwordEncoder.encode(user.getUserPwd()));
+        try {
+            dataServiceStat.insert("com.maomiyibian.microservice.provider.dao.user.UserDao.userRegister",user);
+            messages.setData(null);
+            messages.setResultCode("100200");
+            messages.setResultMessage("用户注册成功");
+        }catch (Exception e){
+            messages.setData(null);
+            messages.setResultCode("100400");
+            messages.setResultMessage("用户注册失败");
+        }
+        return messages;
     }
 
     @Override

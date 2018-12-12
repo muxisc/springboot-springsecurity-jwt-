@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.social.security.SpringSocialConfigurer;
 
 /**
  * @author junyunxiao
@@ -28,8 +29,8 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
     @Autowired
     private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
 
-   /* @Autowired
-    private SpringSocialConfigurer merryyouSpringSocialConfigurer;*/
+   @Autowired
+    private SpringSocialConfigurer merryyouSpringSocialConfigurer;
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -46,8 +47,8 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
-                //制定授权地址
-                .loginPage("/user/unAuthorized")
+                //登录地址,路由前端控制，不作配置
+                //.loginPage("/loginPage")
                 .loginProcessingUrl("/user/login")
                 .successHandler(authenticationSuccessHandler)
                 .failureHandler(customAuthenticationFailHandler)
@@ -58,15 +59,16 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
                 .and()
                 .apply(smsCodeAuthenticationSecurityConfig)
                 .and()
-                /*.apply(merryyouSpringSocialConfigurer)//社交登录
-                  .and()*/
-
-                .addFilter(new JWTLoginFilter(authenticationManager()))
-                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
+                //社交登录
+                .apply(merryyouSpringSocialConfigurer)
+                  /*.and()
                 .authorizeRequests()
                 .antMatchers("/user/unAuthorized","/user/login").permitAll()
                 .anyRequest()
-                .authenticated()
-                .and().csrf().disable();
+                .authenticated()*/
+                .and()
+                .addFilter(new JWTLoginFilter(authenticationManager()))
+                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
+                .csrf().disable();
     }
 }

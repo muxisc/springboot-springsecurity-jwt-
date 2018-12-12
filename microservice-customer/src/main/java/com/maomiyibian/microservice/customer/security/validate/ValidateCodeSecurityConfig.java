@@ -21,7 +21,7 @@ public class ValidateCodeSecurityConfig extends SecurityConfigurerAdapter<Defaul
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        log.info("configure在初始化的时候执行...");
+        //configure在初始化的时候执行...
         http.addFilterBefore(validateCodeFilter, AbstractPreAuthenticatedProcessingFilter.class);
     }
 

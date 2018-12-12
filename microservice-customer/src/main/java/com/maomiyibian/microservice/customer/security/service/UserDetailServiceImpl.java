@@ -60,7 +60,7 @@ public class UserDetailServiceImpl implements UserDetailsService,SocialUserDetai
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        logger.info("用户认证开始...........");
+        logger.info("用户认证开始，待验证用户名:{}",userName);
         //获取用户信息及角色
         User user =userService.queryUserByName(userName);
         if (StringUtils.isEmpty(user)){

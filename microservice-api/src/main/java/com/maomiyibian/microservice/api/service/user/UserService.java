@@ -1,6 +1,7 @@
 package com.maomiyibian.microservice.api.service.user;
 
 import com.maomiyibian.microservice.api.domain.user.User;
+import com.maomiyibian.microservice.common.message.TradeMessages;
 import com.maomiyibian.microservice.common.page.Page;
 
 import java.util.Map;
@@ -41,7 +42,7 @@ public interface UserService {
      * @param user
      * @return
      */
-    User userRegister(User user);
+    TradeMessages<String> userRegister(User user);
 
     /**
      * 根据用户名查询用户数据

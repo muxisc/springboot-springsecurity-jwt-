@@ -67,13 +67,12 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
     @Override
     public void afterPropertiesSet() throws ServletException {
         super.afterPropertiesSet();
-
         urlMap.put(SecurityConstants.DEFAULT_SIGN_IN_PROCESSING_URL_MOBILE, ValidateCodeType.SMS);
         addUrlToMap(securityProperties.getCode().getSms().getUrl(), ValidateCodeType.SMS);
     }
 
     /**
-     * 讲系统中配置的需要校验验证码的URL根据校验的类型放入map
+     * 系统中配置的需要校验验证码的URL根据校验的类型放入map
      *
      * @param urlString
      * @param type
