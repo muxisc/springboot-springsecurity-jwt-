@@ -48,10 +48,11 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
                 //登录地址,路由前端控制，不作配置
-                //.loginPage("/loginPage")
-                .loginProcessingUrl("/user/login")
+                /*.loginPage("/loginPage")*/
+                //采用JWT登录拦截，路由是/login
+                /*.loginProcessingUrl("/user/login")
                 .successHandler(authenticationSuccessHandler)
-                .failureHandler(customAuthenticationFailHandler)
+                .failureHandler(customAuthenticationFailHandler)*/
                 //http.httpBasic()
                 .and()
                 //验证码拦截
@@ -61,7 +62,8 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
                 .and()
                 //社交登录
                 .apply(merryyouSpringSocialConfigurer)
-                  /*.and()
+                //采用自定义登录拦截
+                /*.and()
                 .authorizeRequests()
                 .antMatchers("/user/unAuthorized","/user/login").permitAll()
                 .anyRequest()

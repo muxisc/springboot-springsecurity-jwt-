@@ -5,8 +5,9 @@ import com.maomiyibian.microservice.api.domain.user.User;
 import com.maomiyibian.microservice.api.service.user.UserService;
 import com.maomiyibian.microservice.common.message.TradeMessages;
 import com.maomiyibian.microservice.common.page.Page;
-import com.maomiyibian.microservice.common.utils.JSONUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.Map;
 
 /**
@@ -17,6 +18,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/user")
+@Slf4j
 public class UserController {
 
     @Reference(version = "${service.version}",
@@ -41,6 +43,19 @@ public class UserController {
         return messages;
     }
 
+    @RequestMapping("/follow")
+    @ResponseBody
+    public TradeMessages<String> follow()throws Exception{
+        log.info("未被拦截请求...");
+        return null;
+    }
+
+    /*@RequestMapping("/login")
+    @ResponseBody
+    public TradeMessages<String> login()throws Exception{
+
+        return null;
+    }*/
 
     @PostMapping("userRegister")
     @ResponseBody
