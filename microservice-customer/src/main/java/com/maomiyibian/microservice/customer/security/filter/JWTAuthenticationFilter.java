@@ -41,7 +41,7 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         String header = request.getHeader("Authorization");
-        log.info("开始验证权限，获得header：{}",header);
+        log.info("开始验证权限...获取TOKEN：{}",header);
         if (header == null || !header.startsWith("Bearer ")) {
             //TODO redis中验证TOKEN
             chain.doFilter(request, response);

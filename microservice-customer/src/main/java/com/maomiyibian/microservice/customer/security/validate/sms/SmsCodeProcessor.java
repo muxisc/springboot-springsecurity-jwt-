@@ -3,7 +3,7 @@ package com.maomiyibian.microservice.customer.security.validate.sms;
 
 
 import com.maomiyibian.microservice.customer.security.properties.SecurityConstants;
-import com.maomiyibian.microservice.customer.security.validate.ValidateCode;
+import com.maomiyibian.microservice.customer.security.validate.vo.ValidateCode;
 import com.maomiyibian.microservice.customer.security.validate.impl.AbstractValidateCodeProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -1,7 +1,7 @@
 package com.maomiyibian.microservice.customer.security.validate.sms;
 
 
-import com.maomiyibian.microservice.customer.security.validate.ValidateCode;
+import com.maomiyibian.microservice.customer.security.validate.vo.ValidateCode;
 import com.maomiyibian.microservice.customer.security.validate.ValidateCodeGenerator;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,9 +1,17 @@
 package com.maomiyibian.microservice.customer.security.properties;
 
 /**
- * @author
+ * @describe url配置
+ * @author weili
  */
 public interface SecurityConstants {
+
+    /**
+     * 默认的用户注册请求处理url
+     */
+    String DEFAULT_REGISTER_URL = "/user/register";
+
+
 
     /**
      * 默认的处理验证码的url前缀
@@ -25,15 +33,6 @@ public interface SecurityConstants {
      */
     String DEFAULT_SIGN_IN_PROCESSING_URL_MOBILE = "/authentication/mobile";
 
-    /**
-     * 默认的手机验证码登录请求处理url
-     */
-    //String DEFAULT_SIGN_IN_URL_MOBILE_PAGE = "/authentication/mobilePage";
-
-    /**
-     * 默认的用户注册请求处理url
-     */
-    String DEFAULT_REGISTER_URL = "/authentication/register";
 
     /**
      * weixin appID

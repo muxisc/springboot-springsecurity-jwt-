@@ -9,7 +9,6 @@ package com.maomiyibian.microservice.customer.security.validate.sms;
  * @since 1.0
  */
 public enum LoginType {
-
     REDIRECT,
-    JSON
+    JSON;
 }

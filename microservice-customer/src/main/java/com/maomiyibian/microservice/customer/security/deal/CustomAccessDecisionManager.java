@@ -50,8 +50,9 @@ public class CustomAccessDecisionManager implements AccessDecisionManager {
     @Override
     public void decide(Authentication authentication, Object object, Collection<ConfigAttribute> configAttributes)
             throws AccessDeniedException, InsufficientAuthenticationException {
-       log.info("进入decide决策...");
+        log.info("进入decide决策层...");
         if( configAttributes == null ) {
+            log.info("该请求已放行...");
             return ;
         }
 
@@ -60,8 +61,7 @@ public class CustomAccessDecisionManager implements AccessDecisionManager {
         while( ite.hasNext()){
             ConfigAttribute ca = ite.next();
             String needRole = "ROLE_"+((SecurityConfig)ca).getAttribute();
-
-            //ga 为用户所被赋予的权限。 needRole 为访问相应的资源应该具有的权限。
+            //ga 为用户所被赋予的权限，needRole 为访问相应的资源应该具有的权限。
             for( GrantedAuthority ga: authentication.getAuthorities()){
                 if(needRole.trim().equals(ga.getAuthority().trim())){
                     return;

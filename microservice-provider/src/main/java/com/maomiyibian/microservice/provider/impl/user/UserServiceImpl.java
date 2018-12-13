@@ -32,8 +32,8 @@ public class UserServiceImpl implements UserService {
 
     private Logger logger= LoggerFactory.getLogger(UserServiceImpl.class);
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+  /*  @Autowired
+    private PasswordEncoder passwordEncoder;*/
 
     @Autowired
     private DataServiceMybatis dataServiceStat;
@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
         TradeMessages<String> messages=new TradeMessages<>();
         long userId=System.currentTimeMillis();
         user.setId(userId);
-        user.setUserPwd(passwordEncoder.encode(user.getUserPwd()));
+        user.setUserPwd(user.getUserPwd());
         try {
             dataServiceStat.insert("com.maomiyibian.microservice.provider.dao.user.UserDao.userRegister",user);
             messages.setData(null);

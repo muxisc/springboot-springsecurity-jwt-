@@ -1,5 +1,6 @@
 package com.maomiyibian.microservice.customer.security.validate;
 
+import com.maomiyibian.microservice.customer.security.validate.vo.ValidateCode;
 import org.springframework.web.context.request.ServletWebRequest;
 
 /**

@@ -1,7 +1,7 @@
 package com.maomiyibian.microservice.customer.security.validate.impl;
 
 
-import com.maomiyibian.microservice.customer.security.validate.ValidateCode;
+import com.maomiyibian.microservice.customer.security.validate.vo.ValidateCode;
 import com.maomiyibian.microservice.customer.security.validate.ValidateCodeRepository;
 import com.maomiyibian.microservice.customer.security.validate.ValidateCodeType;
 import org.springframework.stereotype.Component;

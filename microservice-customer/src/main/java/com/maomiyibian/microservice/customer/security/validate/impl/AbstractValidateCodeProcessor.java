@@ -4,6 +4,7 @@ package com.maomiyibian.microservice.customer.security.validate.impl;
 import com.maomiyibian.microservice.customer.exception.ValidateCodeException;
 import com.maomiyibian.microservice.customer.security.mobile.ResultEnum;
 import com.maomiyibian.microservice.customer.security.validate.*;
+import com.maomiyibian.microservice.customer.security.validate.vo.ValidateCode;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,7 +95,7 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
             //获取请求进来的code
             codeInRequest = ServletRequestUtils.getStringParameter(request.getRequest(),
                     codeType.getParamNameOnValidate());
-            log.info("codeInRequest:{}",codeInRequest);
+            log.info("请求中的验证码smsCode:{}",codeInRequest);
         } catch (ServletRequestBindingException e) {
             throw new ValidateCodeException(ResultEnum.CODE_ERROT.getCode(),"获取验证码的值失败");
     }

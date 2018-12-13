@@ -1,4 +1,4 @@
-package com.maomiyibian.microservice.customer.security.validate;
+package com.maomiyibian.microservice.customer.security.validate.vo;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

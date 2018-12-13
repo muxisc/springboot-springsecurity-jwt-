@@ -53,7 +53,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
     /**
      * 存放所有需要检验验证码得url
      */
-    private Map<String,ValidateCodeType> urlMap = new HashMap<>();
+    private Map<String, ValidateCodeType> urlMap = new HashMap<>();
 
     /**
      * 验证请求url与配置得url是否匹配得工具类
@@ -62,29 +62,32 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
 
     /**
      * 初始化bena完成后在家该信息也就是拦截得url
+     *
      * @throws ServletException
      */
     @Override
     public void afterPropertiesSet() throws ServletException {
         super.afterPropertiesSet();
+        //在这里添加url和对应的校验类型
         urlMap.put(SecurityConstants.DEFAULT_SIGN_IN_PROCESSING_URL_MOBILE, ValidateCodeType.SMS);
-        addUrlToMap(securityProperties.getCode().getSms().getUrl(), ValidateCodeType.SMS);
+        urlMap.put(SecurityConstants.DEFAULT_REGISTER_URL,ValidateCodeType.SMS);
+        //读取配置中的url配置
+        // addUrlToMap(securityProperties.getCode().getSms().getUrl(), ValidateCodeType.SMS);
     }
 
     /**
      * 系统中配置的需要校验验证码的URL根据校验的类型放入map
      *
      * @param urlString
-     * @param type
+     * @param type      protected void addUrlToMap(String urlString, ValidateCodeType type) {
+     *                  if (StringUtils.isNotBlank(urlString)) {
+     *                  String[] urls = StringUtils.splitByWholeSeparatorPreserveAllTokens(urlString, ",");
+     *                  for (String url : urls) {
+     *                  urlMap.put(url, type);
+     *                  }
+     *                  }
+     *                  }
      */
-    protected void addUrlToMap(String urlString, ValidateCodeType type) {
-        if (StringUtils.isNotBlank(urlString)) {
-            String[] urls = StringUtils.splitByWholeSeparatorPreserveAllTokens(urlString, ",");
-            for (String url : urls) {
-                urlMap.put(url, type);
-            }
-        }
-    }
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         ValidateCodeType type = getValidateCodeType(request);
@@ -110,7 +113,6 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
      * @return
      */
     private ValidateCodeType getValidateCodeType(HttpServletRequest request) {
-       log.info("urlMap键值对获取校验验证码类型...");
         ValidateCodeType result = null;
         //限定post请求
         if (!StringUtils.equalsIgnoreCase(request.getMethod(), "get")) {
@@ -121,6 +123,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
                 }
             }
         }
+        log.info("该请求是否需要验证码拦截？为空则没有配置该拦截:{},", result);
         return result;
     }
 }
