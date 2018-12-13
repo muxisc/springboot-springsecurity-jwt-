@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  */
 @Data
 @Component
-@ConfigurationProperties(prefix = "merryyou.security")
+@ConfigurationProperties(prefix = "merryyou.security") //配置文件载入实体
 public class SecurityProperties {
 
     private LoginType loginType = LoginType.JSON;

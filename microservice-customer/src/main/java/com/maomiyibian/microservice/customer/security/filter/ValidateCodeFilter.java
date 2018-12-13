@@ -4,7 +4,6 @@ import com.maomiyibian.microservice.customer.exception.ValidateCodeException;
 import com.maomiyibian.microservice.customer.security.properties.SecurityConstants;
 import com.maomiyibian.microservice.customer.security.validate.ValidateCodeProcessorHolder;
 import com.maomiyibian.microservice.customer.security.validate.ValidateCodeType;
-import com.maomiyibian.microservice.customer.security.validate.sms.SecurityProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
@@ -41,8 +40,8 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
     /**
      * 系统配置信息
      */
-    @Autowired
-    private SecurityProperties securityProperties;
+   /* @Autowired
+    private SecurityProperties securityProperties;*/
 
     /**
      * 校验码处理器
@@ -72,14 +71,12 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
         urlMap.put(SecurityConstants.DEFAULT_SIGN_IN_PROCESSING_URL_MOBILE, ValidateCodeType.SMS);
         urlMap.put(SecurityConstants.DEFAULT_REGISTER_URL,ValidateCodeType.SMS);
         //读取配置中的url配置
-        // addUrlToMap(securityProperties.getCode().getSms().getUrl(), ValidateCodeType.SMS);
+         //addUrlToMap(securityProperties.getCode().getSms().getUrl(), ValidateCodeType.SMS);
     }
 
     /**
      * 系统中配置的需要校验验证码的URL根据校验的类型放入map
-     *
-     * @param urlString
-     * @param type      protected void addUrlToMap(String urlString, ValidateCodeType type) {
+     *                   protected void addUrlToMap(String urlString, ValidateCodeType type) {
      *                  if (StringUtils.isNotBlank(urlString)) {
      *                  String[] urls = StringUtils.splitByWholeSeparatorPreserveAllTokens(urlString, ",");
      *                  for (String url : urls) {
