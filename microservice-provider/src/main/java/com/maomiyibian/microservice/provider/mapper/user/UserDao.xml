@@ -109,7 +109,7 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
 
-  <insert id="insertSelective" parameterType="com.maomiyibian.microservice.api.domain.user.User" >
+  <insert id="userRegister" parameterType="com.maomiyibian.microservice.api.domain.user.User" >
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

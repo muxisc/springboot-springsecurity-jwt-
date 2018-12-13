@@ -36,6 +36,7 @@ public class CustomInvocationSecurityMetadataSourceService implements FilterInvo
     private void loadResourceDefine() {
         resourceMap = new HashMap<String, Collection<ConfigAttribute>>();
 
+        //TODO reids存放对应url及其所需权限集合
         /*List<Resource> resourceList = resourceDao.findAll();
         for(Resource resource : resourceList) {
             List<Role> roles = roleResourceDao.findRolesByResourceUrl(resource.getId());

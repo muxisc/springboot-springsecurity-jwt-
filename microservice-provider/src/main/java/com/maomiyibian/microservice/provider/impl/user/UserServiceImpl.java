@@ -5,6 +5,7 @@ import com.maomiyibian.microservice.api.domain.user.User;
 import com.maomiyibian.microservice.api.service.user.UserService;
 import com.maomiyibian.microservice.common.message.TradeMessages;
 import com.maomiyibian.microservice.common.page.Page;
+import com.maomiyibian.microservice.common.utils.PasswordUtils;
 import com.maomiyibian.microservice.provider.template.DataServiceMybatis;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,8 +33,6 @@ public class UserServiceImpl implements UserService {
 
     private Logger logger= LoggerFactory.getLogger(UserServiceImpl.class);
 
-  /*  @Autowired
-    private PasswordEncoder passwordEncoder;*/
 
     @Autowired
     private DataServiceMybatis dataServiceStat;
@@ -56,16 +55,21 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = Exception.class,propagation = Propagation.REQUIRED,isolation = Isolation.READ_COMMITTED)
     @Override
     public TradeMessages<String> userRegister(User user) {
+        logger.info("用户注册rpc调用:{}",user);
         TradeMessages<String> messages=new TradeMessages<>();
-        long userId=System.currentTimeMillis();
-        user.setId(userId);
-        user.setUserPwd(user.getUserPwd());
+        String userName="EzCoder"+user.getId();
+        user.setUserName(userName);
+        user.setUserPwd(PasswordUtils.encode(user.getUserPwd(),"SHA256"));
+        user.setUserPhoneNum(user.getId().toString());
+        user.setUserStatus("1");
+        user.setCreateUserId(user.getId());
         try {
             dataServiceStat.insert("com.maomiyibian.microservice.provider.dao.user.UserDao.userRegister",user);
             messages.setData(null);
             messages.setResultCode("100200");
             messages.setResultMessage("用户注册成功");
         }catch (Exception e){
+            logger.error("用户注册时发生异常:{}",e);
             messages.setData(null);
             messages.setResultCode("100400");
             messages.setResultMessage("用户注册失败");

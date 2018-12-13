@@ -50,14 +50,8 @@ public class UserController {
         return null;
     }
 
-    /*@RequestMapping("/login")
-    @ResponseBody
-    public TradeMessages<String> login()throws Exception{
 
-        return null;
-    }*/
-
-    @PostMapping("userRegister")
+    @RequestMapping("/register")
     @ResponseBody
     public TradeMessages<String> userRegister(User user){
          return userService.userRegister(user);
