@@ -76,14 +76,20 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
     @SuppressWarnings("unchecked")
     @Override
     public void validate(HttpServletRequest request) {
-        //todo 获取请求类型，及时删除该步骤
+        //todo 获取请求类型，后面删除该步骤
         ValidateCodeType codeType = getValidateCodeType(request);
 
         String phoneNum = request.getParameter("id");
-        //从缓存中获取code，与请求的code对比
-        redisService.hset(SecurityConstants.SMS_CODE_KEY,"15173126777","123456",60);
-        String codeInRedis =String.valueOf(redisService.hget(SecurityConstants.SMS_CODE_KEY,phoneNum));
+        //模拟缓存失效,要注释
+        redisService.hset(SecurityConstants.SMS_CODE_KEY,"15173126777","123456",5);
+      /*  try {
+            Thread.sleep(6000);
+        }catch (Exception e){
 
+        }*/
+        //从缓存中获取code，与请求的code对比。注意缓存过期后，会主动驱逐该键
+        String codeInRedis =String.valueOf(redisService.hget(SecurityConstants.SMS_CODE_KEY,phoneNum));
+        log.info("缓存中的的验证码:{}",codeInRedis);
         String codeInRequest;
         try {
             //获取请求进来的code
@@ -98,20 +104,13 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
             throw new ValidateCodeException(ResultEnum.CODE_ERROT.getCode(), codeType + "验证码的值不能为空");
         }
         //缓存中的code码
-        if (codeInRedis == null) {
+        if (codeInRedis == null||"null".equals(codeInRedis)) {
             throw new ValidateCodeException(ResultEnum.CODE_ERROT.getCode(), codeType + "验证码不存在");
         }
-
-       /* if (codeInRedis.isExpired()) {
-            validateCodeRepository.remove(request, codeType);
-            throw new ValidateCodeException(ResultEnum.CODE_ERROT.getCode(), codeType + "验证码已过期");
-        }*/
 
         if (!StringUtils.equals(codeInRedis, codeInRequest)) {
             throw new ValidateCodeException(ResultEnum.CODE_ERROT.getCode(), codeType + "验证码不匹配");
         }
-
-        //redisService;
-
+        redisService.hdel(SecurityConstants.SMS_CODE_KEY,phoneNum,codeInRedis);
     }
 }

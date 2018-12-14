@@ -68,6 +68,13 @@ public interface RedisService {
      * @return
      */
      boolean expire(String key,long time);
+
+    /**
+     * 从hash散列中移除值
+     * @param key
+     * @param item
+     */
+     void hdel(String key, Object... item);
     }
 
 

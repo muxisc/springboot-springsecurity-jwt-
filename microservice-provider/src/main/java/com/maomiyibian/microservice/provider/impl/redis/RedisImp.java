@@ -103,4 +103,13 @@ public class RedisImp implements RedisService {
             return false;
         }
     }
+
+    /**
+     * 删除hash表中的值
+     * @param key 键 不能为null
+     * @param item 项 可以使多个 不能为null
+     */
+    public void hdel(String key, Object... item){
+        redisTemplate.opsForHash().delete(key,item);
+    }
 }
