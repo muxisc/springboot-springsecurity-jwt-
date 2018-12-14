@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * Created on 2018/1/10.
  *
@@ -25,10 +27,10 @@ public class SmsCodeProcessor extends AbstractValidateCodeProcessor<ValidateCode
     @Autowired
     private SmsCodeSender smsCodeSender;
 
+    //SecurityConstants.DEFAULT_PARAMETER_NAME_MOBILE;
+
     @Override
-    protected void send(ServletWebRequest request, ValidateCode validateCode) throws Exception {
-        String paramName = SecurityConstants.DEFAULT_PARAMETER_NAME_MOBILE;
-        String mobile = ServletRequestUtils.getRequiredStringParameter(request.getRequest(), paramName);
-        smsCodeSender.send(mobile, validateCode.getCode());
+    protected void send(String phoneNum, ValidateCode validateCode) throws Exception {
+        smsCodeSender.send(phoneNum, validateCode.getCode());
     }
 }

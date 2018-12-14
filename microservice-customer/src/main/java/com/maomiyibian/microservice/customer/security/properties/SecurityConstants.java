@@ -7,10 +7,23 @@ package com.maomiyibian.microservice.customer.security.properties;
 public interface SecurityConstants {
 
     /**
+     * 验证码键
+     */
+    String SMS_CODE_KEY="SMSCODE";
+
+    /**
+     * 验证码长度
+     */
+     int LENGTH = 6;
+    /**
+     * 过期时间
+     */
+     int EXPIRE_TIME = 60;
+
+    /**
      * 默认的用户注册请求处理url
      */
     String DEFAULT_REGISTER_URL = "/user/register";
-
 
 
     /**

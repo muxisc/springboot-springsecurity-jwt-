@@ -1,28 +1,22 @@
 package com.maomiyibian.microservice.customer.security.validate.sms;
 
 
+import com.maomiyibian.microservice.customer.security.properties.SecurityConstants;
 import com.maomiyibian.microservice.customer.security.validate.vo.ValidateCode;
-import com.maomiyibian.microservice.customer.security.validate.ValidateCodeGenerator;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.ServletWebRequest;
 
 /**
- * Created on 2018/1/10.
- *
- * @author zlf
+ * @author 微笑天使
  * @since 1.0
  */
 @Component("smsValidateCodeGenerator")
-public class SmsCodeGenerator implements ValidateCodeGenerator {
+public class SmsCodeGenerator {
 
-    @Autowired
-    private SecurityProperties securityProperties;
-
-    @Override
-    public ValidateCode generate(ServletWebRequest request) {
-        String code = RandomStringUtils.randomNumeric(securityProperties.getCode().getSms().getLength());
-        return new ValidateCode(code, securityProperties.getCode().getSms().getExpireIn());
+    public ValidateCode generate() {
+        String code = RandomStringUtils.randomNumeric(SecurityConstants.LENGTH);
+        return new ValidateCode(code, SecurityConstants.EXPIRE_TIME);
     }
 }

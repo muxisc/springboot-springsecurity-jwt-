@@ -11,5 +11,5 @@ public class ValidateCodeProperties {
     /**
      * 短信验证码配置
      */
-    private SmsCodeProperties sms = new SmsCodeProperties();
+    //private SmsCode sms = new SmsCode();
 }
