@@ -1,5 +1,6 @@
 package com.maomiyibian.microservice.customer.security;
 
+import com.maomiyibian.microservice.customer.security.deal.CustomAuthenticationProvider;
 import com.maomiyibian.microservice.customer.security.filter.JWTAuthenticationFilter;
 import com.maomiyibian.microservice.customer.security.filter.JWTLoginFilter;
 import com.maomiyibian.microservice.customer.security.handler.AuthenticationSuccessHandler;
@@ -9,8 +10,10 @@ import com.maomiyibian.microservice.customer.security.validate.ValidateCodeSecur
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.social.security.SpringSocialConfigurer;
@@ -29,13 +32,14 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
     @Autowired
     private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
 
+    @Autowired
+    private UserDetailsService userDetailServiceImpl;   ;
+
    @Autowired
     private SpringSocialConfigurer merryyouSpringSocialConfigurer;
 
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     private AuthenticationSuccessHandler authenticationSuccessHandler;
@@ -73,4 +77,11 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
                 .csrf().disable();
     }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+// 使用自定义身份验证组件
+        auth.authenticationProvider(new CustomAuthenticationProvider(userDetailServiceImpl, bCryptPasswordEncoder));
+    }
+
 }

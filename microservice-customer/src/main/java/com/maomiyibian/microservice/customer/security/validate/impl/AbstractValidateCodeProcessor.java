@@ -81,7 +81,7 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
 
         String phoneNum = request.getParameter("id");
         //模拟缓存失效,要注释
-        redisService.hset(SecurityConstants.SMS_CODE_KEY,"15173126777","123456",5);
+        redisService.hset(SecurityConstants.SMS_CODE_KEY,"15173126889","123456",5);
       /*  try {
             Thread.sleep(6000);
         }catch (Exception e){

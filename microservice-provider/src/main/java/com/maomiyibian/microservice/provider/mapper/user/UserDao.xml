@@ -44,6 +44,16 @@
     WHERE u.`user_name`=#{userName,jdbcType=VARCHAR}
   </select>
 
+
+  <select id="queryUserById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    SELECT u.*,r.*
+    FROM `user` u INNER JOIN
+    `user_role` ur ON u.`id`=ur.`user_id`
+    INNER JOIN `role` r ON ur.`role_id`=r.`id`
+    WHERE u.`id`=#{id,jdbcType=BIGINT}
+  </select>
+
+
   <select id="queryUser" resultMap="BaseResultMap" parameterType="java.util.Map">
     select
     <include refid="Base_Column_List"/>

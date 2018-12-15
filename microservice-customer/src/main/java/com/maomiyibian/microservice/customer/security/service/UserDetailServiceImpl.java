@@ -30,7 +30,7 @@ import java.util.List;
  * @version 1.0
  * @date 2018/11/27 10:24
  */
-@Component
+@Component("userDetailServiceImpl")
 public class UserDetailServiceImpl implements UserDetailsService,SocialUserDetailsService {
     private Logger logger= LoggerFactory.getLogger(UserDetailServiceImpl.class);
 
@@ -59,12 +59,12 @@ public class UserDetailServiceImpl implements UserDetailsService,SocialUserDetai
 
 
     @Override
-    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        logger.info("用户认证开始，待验证用户名:{}",userName);
+    public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
+        logger.info("用户认证开始，待验证用户名:{}",userId);
         //获取用户信息及角色
-        User user =userService.queryUserByName(userName);
+        User user =userService.queryUserById(Long.parseLong(userId));
         if (StringUtils.isEmpty(user)){
-            throw new UsernameNotFoundException("用户："+userName+"不存在，请检查");
+            throw new UsernameNotFoundException("用户："+userId+"不存在，请检查");
         }
         //获取用户权限
         List<Permission> permissions =permissionService.queryPermissionsByUserId(user.getId());

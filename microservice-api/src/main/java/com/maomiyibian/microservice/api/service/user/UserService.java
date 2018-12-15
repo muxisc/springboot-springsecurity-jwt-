@@ -53,6 +53,13 @@ public interface UserService {
 
 
     /**
+     * 根据id查询用户
+     *  @param userId
+     *  @return
+     */
+    User queryUserById(long userId);
+
+    /**
      * 根据参数查询用户信息
      * @param parmeter
      * @return

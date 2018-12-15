@@ -7,9 +7,11 @@ import com.maomiyibian.microservice.common.message.TradeMessages;
 import com.maomiyibian.microservice.common.page.Page;
 import com.maomiyibian.microservice.common.utils.PasswordUtils;
 import com.maomiyibian.microservice.provider.template.DataServiceMybatis;
+import org.omg.CORBA.PRIVATE_MEMBER;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,7 +33,6 @@ import java.util.Map;
 public class UserServiceImpl implements UserService {
 
     private Logger logger= LoggerFactory.getLogger(UserServiceImpl.class);
-
 
     @Autowired
     private DataServiceMybatis dataServiceStat;
@@ -58,7 +59,6 @@ public class UserServiceImpl implements UserService {
         TradeMessages<String> messages=new TradeMessages<>();
         String userName="EzCoder"+user.getId();
         user.setUserName(userName);
-        user.setUserPwd(PasswordUtils.encode(user.getUserPwd(),"SHA256"));
         user.setUserPhoneNum(user.getId().toString());
         user.setUserStatus("1");
         user.setCreateUserId(user.getId());
@@ -81,6 +81,12 @@ public class UserServiceImpl implements UserService {
         logger.info("com.maomiyibian.microservice.provider.impl.UserServiceImpl.queryUserByName:Rpc调用开始");
         return dataServiceStat.getObject("com.maomiyibian.microservice.provider.dao.user.UserDao.queryUserByName",userName);
     }
+
+    @Override
+    public User queryUserById(long id){
+        return dataServiceStat.getObject("com.maomiyibian.microservice.provider.dao.user.UserDao.selectByPrimaryKey",id);
+    }
+
 
     @Override
     public User queryUser(Map<String, Object> parmeter) {

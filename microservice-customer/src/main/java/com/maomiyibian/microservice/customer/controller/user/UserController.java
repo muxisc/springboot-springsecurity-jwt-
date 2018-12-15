@@ -6,6 +6,9 @@ import com.maomiyibian.microservice.api.service.user.UserService;
 import com.maomiyibian.microservice.common.message.TradeMessages;
 import com.maomiyibian.microservice.common.page.Page;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -27,6 +30,8 @@ public class UserController {
     )
     private UserService userService;
 
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     /**
      * 尚未认证
@@ -54,7 +59,8 @@ public class UserController {
     @RequestMapping("/register")
     @ResponseBody
     public TradeMessages<String> userRegister(User user){
-         return userService.userRegister(user);
+        user.setUserPwd(bCryptPasswordEncoder.encode(user.getUserPwd()));
+        return userService.userRegister(user);
     }
 
     @GetMapping("/queryUserByPage")

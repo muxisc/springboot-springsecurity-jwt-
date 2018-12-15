@@ -4,11 +4,13 @@ import com.maomiyibian.microservice.api.domain.user.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.FilterChain;
@@ -43,12 +45,12 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
         /*try {*/
             //User user = new ObjectMapper().readValue(req.getInputStream(), User.class);
             User user=new User();
-            user.setUserName("weili");
-            user.setUserPwd("weili");
+            user.setId(15173126889L);
+            user.setUserPwd("chengzi19950922");
             log.info("待验证user:{}",user);
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            user.getUserName(),
+                            user.getId(),
                             user.getUserPwd(),
                             new ArrayList<>())
             );
@@ -87,8 +89,6 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
             log.info("TOKEN:{}",token);
             // 登录成功后，返回token到header里，再次请求时作为请求头
             response.addHeader("Authorization", "Bearer " + token);
-            //过滤器链放行
-            chain.doFilter(request,response);
         } catch (Exception e) {
             e.printStackTrace();
         }
