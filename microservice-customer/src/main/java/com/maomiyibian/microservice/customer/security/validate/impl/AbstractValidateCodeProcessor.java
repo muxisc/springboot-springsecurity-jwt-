@@ -6,7 +6,8 @@ import com.maomiyibian.microservice.api.service.RedisService;
 import com.maomiyibian.microservice.customer.exception.ValidateCodeException;
 import com.maomiyibian.microservice.customer.security.mobile.ResultEnum;
 import com.maomiyibian.microservice.customer.security.properties.SecurityConstants;
-import com.maomiyibian.microservice.customer.security.validate.*;
+import com.maomiyibian.microservice.customer.security.validate.ValidateCodeProcessor;
+import com.maomiyibian.microservice.customer.security.validate.ValidateCodeType;
 import com.maomiyibian.microservice.customer.security.validate.sms.SmsCodeGenerator;
 import com.maomiyibian.microservice.customer.security.validate.vo.ValidateCode;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +15,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
-import org.springframework.web.context.request.ServletWebRequest;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -62,7 +62,7 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
      * 保存验证码
      */
     private void save(String phoneNum, ValidateCode validateCode) {
-        redisService.hset(phoneNum, validateCode.getCode(), validateCode.getCode(), SecurityConstants.EXPIRE_TIME);
+        redisService.hset(SecurityConstants.SMS_CODE_KEY, phoneNum, validateCode.getCode(), SecurityConstants.EXPIRE_TIME);
     }
 
     /**
@@ -81,8 +81,8 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
 
         String phoneNum = request.getParameter("id");
         //模拟缓存失效,要注释
-        redisService.hset(SecurityConstants.SMS_CODE_KEY,"15173126889","123456",5);
-      /*  try {
+        /*redisService.hset(SecurityConstants.SMS_CODE_KEY,"15173126889","123456",5);
+        try {
             Thread.sleep(6000);
         }catch (Exception e){
 

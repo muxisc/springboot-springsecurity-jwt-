@@ -37,7 +37,7 @@ public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessin
      * request中必须含有mobile参数
      * mobile
      */
-    private String mobileParameter = SecurityConstants.DEFAULT_PARAMETER_NAME_MOBILE;
+    private String mobileParameter = "id";
     /**
      * post请求
      */

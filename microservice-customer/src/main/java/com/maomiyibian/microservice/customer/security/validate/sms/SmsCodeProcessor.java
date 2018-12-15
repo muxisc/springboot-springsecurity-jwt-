@@ -27,8 +27,6 @@ public class SmsCodeProcessor extends AbstractValidateCodeProcessor<ValidateCode
     @Autowired
     private SmsCodeSender smsCodeSender;
 
-    //SecurityConstants.DEFAULT_PARAMETER_NAME_MOBILE;
-
     @Override
     protected void send(String phoneNum, ValidateCode validateCode) throws Exception {
         smsCodeSender.send(phoneNum, validateCode.getCode());

@@ -28,7 +28,6 @@ public class SmsCodeAuthenticationProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         SmsCodeAuthenticationToken authenticationToken = (SmsCodeAuthenticationToken) authentication;
         //调用自定义的userDetailsService认证
-        log.info("au:{}",authenticationToken.getPrincipal());
         UserDetails user = userDetailsService.loadUserByUsername((String) authenticationToken.getPrincipal());
         if (user == null || StringUtils.isEmpty(user.getUsername())) {
             throw new InternalAuthenticationServiceException("无法获取用户信息");
