@@ -2,7 +2,6 @@ package com.maomiyibian.microservice.customer.security.validate.sms;
 
 import com.maomiyibian.microservice.customer.security.properties.ValidateCodeProperties;
 import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,10 +9,8 @@ import org.springframework.stereotype.Component;
  */
 @Data
 @Component
-@ConfigurationProperties(prefix = "merryyou.security") //配置文件载入实体
 public class SecurityProperties {
 
-    private LoginType loginType = LoginType.JSON;
 
     /**
      * 验证码配置
