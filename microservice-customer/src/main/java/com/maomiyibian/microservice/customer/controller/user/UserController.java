@@ -48,13 +48,15 @@ public class UserController {
         return messages;
     }
 
-    @RequestMapping("/follow")
+    @RequestMapping("/toLoginPage")
     @ResponseBody
-    public TradeMessages<String> follow()throws Exception{
-        log.info("未被拦截请求...");
-        return null;
+    public TradeMessages<String> toLoginPage() throws Exception{
+        TradeMessages<String> messages=new TradeMessages<>();
+        messages.setResultCode("100404");
+        messages.setResultMessage("请求不存在，跳转至登录页");
+        messages.setData(null);
+        return messages;
     }
-
 
     @RequestMapping("/register")
     @ResponseBody

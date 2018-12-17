@@ -51,8 +51,8 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
-                //登录地址,路由前端控制，不作配置
-                /*.loginPage("/loginPage")*/
+                //登录地址,路由前端控制，理应不作配置,这里配置拦截不存在的请求
+                .loginPage("/user/toLoginPage")
                 //采用JWT登录拦截，路由是/login
                 /*.loginProcessingUrl("/user/login")
                 .successHandler(authenticationSuccessHandler)
