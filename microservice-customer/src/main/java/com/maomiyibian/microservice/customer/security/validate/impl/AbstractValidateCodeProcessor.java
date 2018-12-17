@@ -4,17 +4,16 @@ package com.maomiyibian.microservice.customer.security.validate.impl;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.maomiyibian.microservice.api.service.RedisService;
 import com.maomiyibian.microservice.customer.exception.ValidateCodeException;
-import com.maomiyibian.microservice.customer.security.mobile.ResultEnum;
 import com.maomiyibian.microservice.customer.security.properties.SecurityConstants;
 import com.maomiyibian.microservice.customer.security.validate.*;
 import com.maomiyibian.microservice.customer.security.validate.sms.SmsCodeGenerator;
+import com.maomiyibian.microservice.customer.security.validate.vo.ResultEnum;
 import com.maomiyibian.microservice.customer.security.validate.vo.ValidateCode;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
-import org.springframework.web.context.request.ServletWebRequest;
 
 import javax.servlet.http.HttpServletRequest;
 

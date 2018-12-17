@@ -1,10 +1,11 @@
-package com.maomiyibian.microservice.customer.security.mobile;
+package com.maomiyibian.microservice.customer.security.weixin;
 
 /**
  *
  * @author
  * @since 1.0
  */
+
 public class ResultUtil {
     public static Result success(Object object) {
         Result result = new Result();
@@ -25,3 +26,4 @@ public class ResultUtil {
         return result;
     }
 }
+
