@@ -33,11 +33,14 @@ public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessin
 
    @Autowired
    private JwtGenerator jwtGenerator;
-    /**
+
+    public static final String SIGNING_KEY = "spring-config-@Jwt!&Secret^#";
+
+   /**
      * request中必须含有mobile参数
      * mobile
      */
-    private String mobileParameter = "id";
+    private String mobileParameter =SecurityConstants.DEFAULT_PHONE_PARAMETER;
     /**
      * post请求
      */
@@ -52,6 +55,7 @@ public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessin
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
+        log.info("手机号验证码验证登录...");
         //判断是是不是post请求
         if (postOnly && !request.getMethod().equals("POST")) {
             throw new AuthenticationServiceException("Authentication method not supported: " + request.getMethod());
@@ -76,10 +80,33 @@ public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessin
 
    @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication auth) throws IOException, ServletException {
-       // 登录成功后，返回token到header里，再次请求时作为请求头
-       response.addHeader("Authorization", "Bearer " + jwtGenerator.JwtGenerator(auth));
-       //过滤器链放行
-       chain.doFilter(request,response);
+       // builder the token
+       String token = null;
+       try {
+           Collection<? extends GrantedAuthority> authorities = auth.getAuthorities();
+           // 定义存放角色集合的对象
+           List roleList = new ArrayList<>();
+           for (GrantedAuthority grantedAuthority : authorities) {
+               roleList.add(grantedAuthority.getAuthority());
+           }
+           // 设置过期时间
+           Calendar calendar = Calendar.getInstance();
+           calendar.setTime(new Date());
+           calendar.add(Calendar.HOUR, 24);
+           Date time = calendar.getTime();
+           token = Jwts.builder()
+                   .setSubject(auth.getName() + "-" + roleList)
+                   // 设置过期时间24小时，设置过期时间应该短，防止别人拿到token发起请求
+                   .setExpiration(time)
+                   //算法可以自定，不一定非要采用HS512
+                   .signWith(SignatureAlgorithm.HS512, SIGNING_KEY)
+                   .compact();
+           log.info("TOKEN:{}",token);
+           // 登录成功后，返回token到header里，再次请求时作为请求头
+           response.addHeader("Authorization", "Bearer " + token);
+       } catch (Exception e) {
+           e.printStackTrace();
+       }
     }
 
     /**
