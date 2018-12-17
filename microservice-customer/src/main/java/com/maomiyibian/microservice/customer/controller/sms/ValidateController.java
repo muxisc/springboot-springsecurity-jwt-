@@ -2,8 +2,6 @@ package com.maomiyibian.microservice.customer.controller.sms;
 
 import com.maomiyibian.microservice.customer.security.validate.sms.SmsCodeProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,7 +21,7 @@ public class ValidateController {
     /**
      * 生成验证码
      * */
-    @PostMapping("generateCode")
+    @PostMapping("/generateCode")
     public void generateCode(HttpServletRequest request) throws Exception{
         smsValidateCodeProcessor.create(request);
     }
