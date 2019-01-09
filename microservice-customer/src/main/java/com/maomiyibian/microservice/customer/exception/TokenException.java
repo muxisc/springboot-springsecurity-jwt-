@@ -1,7 +1,7 @@
 package com.maomiyibian.microservice.customer.exception;
 
 /**
- * @author weili
+ * @author 微笑天使
  * @describle 自定义token异常，会在全局异常捕获该异常
  */
 
